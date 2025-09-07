@@ -1,15 +1,32 @@
+package recfun
+//import common._
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-@main
-def main(): Unit = {
-  //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-  // to see how IntelliJ IDEA suggests fixing it.
-  (1 to 5).map(println)
-
-  for (i <- 1 to 9) {
-    //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-    // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-    println(s"i = $i")
+object Main {
+  def main(args: Array[String]) = {
+    println("Pascal's Triangle")
+    for (row <- 0 to 10) {
+      for (col <- 0 to row)
+        print(pascal(col, row) + " ")
+      println()
+    }
   }
+
+  /**
+   * Exercise 1
+   */
+  def pascal(c: Int, r: Int): Int = {
+    if (c == 0 || c == r) 1
+    else pascal(c - 1, r - 1) + pascal(c, r - 1)
+  }
+
+  /**
+   * Exercise 2
+   */
+  def balance(chars: List[Char]): Boolean = ???
+
+  /**
+   * Exercise 3
+   */
+  def countChange(money: Int, coins: List[Int]): Int = ???
 }
 
