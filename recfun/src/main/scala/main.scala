@@ -1,7 +1,9 @@
 package recfun
 
 object Main {
-
+  def countChangeCount(target: Int, coins: List[Int]): Int = {
+    countChange(target, coins).length
+  }
   def main(args: Array[String]): Unit = {
     println("Pascal's Triangle")
     for (row <- 0 to 10) {
@@ -41,29 +43,6 @@ object Main {
       check(brackets)
     }
 
-    // 测试函数
-    def testBalance(): Unit = { //ai-generated test cases,i think it would be fine to use ai to generate test cases,,,,,,,,
-      val testCases = List(
-        ("(if (zero? x) max (/ 1 x))", true),
-        ("I told him (that it's not (yet) done). (But he wasn't listening)", true),
-        (":-)", false),
-        ("())(", false),
-        ("(((())))", true),
-        ("(()", false),
-        ("())", false),
-        ("", true),
-        ("no brackets here", true),
-        ("(())(()())", true),
-        ("(()))(()", false)
-      )
-
-      testCases.foreach { case (input, expected) =>
-        val result = balance(input.toList)
-        val status = if (result == expected) "✅ Passed" else "❌ Failed"
-        println(s"$status | Input: '$input' | Expected: $expected | Got: $result")
-      }
-    }
-
     /**
      * Exercise 3
      */
@@ -84,36 +63,10 @@ object Main {
         }
       }
 
+
+
       helper(Nil, target)
     }
-
-    def testCountChange(): Unit = {
-      println("\nCount Change Tests:")
-
-      val testCases = List(
-        (4, List(1, 2), 3), // 所有组合：[1,1,1,1], [1,1,2], [2,2], [1,2,1], [2,1,1]
-        (4, List(2, 1), 3),
-        (5, List(1, 2, 5), 4),
-        (5, List(5, 2, 1), 4),
-        (3, List(2), 0),
-        (10, List(2, 5, 3, 6), 5),
-        (10, List(6, 5, 3, 2), 5),
-        (0, List(1, 2, 3), 1),
-        (0, List(3, 2, 1), 1),
-        (1, List(), 0),
-        (7, List(3, 2, 1), 8),
-        (300, List(500, 200, 100, 50, 20, 10, 5), 1022) // 已知结果
-        // 所有组合的数量
-      )
-
-      testCases.foreach { case (money, coins, expectedCount) =>
-        val result = countChange(money, coins)
-        val actualCount = result.length
-        val status = if (actualCount == expectedCount) "✅ Passed" else "❌ Failed"
-        println(s"$status | Money: $money | Coins: $coins | Expected: $expectedCount | Got: $actualCount")
-      }
-    }
-
 
   }
 
