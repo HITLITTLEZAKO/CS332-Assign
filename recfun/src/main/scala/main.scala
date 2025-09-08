@@ -9,6 +9,9 @@ object Main {
 
     println("\nBracket Matching Tests:")
     testBalance()
+
+    println("\nCount Change Tests:")
+    testCountChange()
   }
 
   /**
@@ -41,7 +44,7 @@ object Main {
   }
 
   // 测试函数
-  def testBalance(): Unit = {
+  def testBalance(): Unit = {//ai-generated test cases,i think it would be fine to use ai to generate test cases,,,,,,,,
     val testCases = List(
       ("(if (zero? x) max (/ 1 x))", true),
       ("I told him (that it's not (yet) done). (But he wasn't listening)", true),
@@ -67,5 +70,44 @@ object Main {
    * Exercise 3
    */
   // def countChange(money: Int, coins: List[Int]): Int = ???
+  def countChange(target: Int, coins: List[Int]): List[List[Int]] = {
+    def helper(currentExpr: List[Int], remaining: Int): List[List[Int]] = {
+      if (remaining == 0) List(currentExpr) // 找到一个合法组合
+      else if (remaining < 0 || coins.isEmpty) Nil // 超过目标或没有硬币可用
+      else {
+        val minInExpr = if (currentExpr.isEmpty) coins.head else currentExpr.min
+        val usableCoins = coins.filter(_ <= minInExpr)
+
+        usableCoins.flatMap { coin =>
+          helper(currentExpr :+ coin, remaining - coin)
+        }
+      }
+    }
+
+    helper(Nil, target)
+  }
+
+  def testCountChange(): Unit = {
+    println("\nCount Change Tests:")
+
+    val testCases = List(
+      (4, List(1, 2), 5), // 所有组合：[1,1,1,1], [1,1,2], [2,2], [1,2,1], [2,1,1]
+      (5, List(1, 2, 5), 9),
+      (3, List(2), 0),
+      (10, List(2, 5, 3, 6), 17),
+      (0, List(1, 2, 3), 1),
+      (1, List(), 0),
+      (7, List(1, 2, 3), 44) // 所有组合的数量
+    )
+
+    testCases.foreach { case (money, coins, expectedCount) =>
+      val result = countChange(money, coins)
+      val actualCount = result.length
+      val status = if (actualCount == expectedCount) "✅ Passed" else "❌ Failed"
+      println(s"$status | Money: $money | Coins: $coins | Expected: $expectedCount | Got: $actualCount")
+    }
+  }
+
+
 }
 
