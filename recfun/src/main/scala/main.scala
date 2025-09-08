@@ -71,12 +71,13 @@ object Main {
    */
   // def countChange(money: Int, coins: List[Int]): Int = ???
   def countChange(target: Int, coins: List[Int]): List[List[Int]] = {
+    val sortedCoins = coins.sorted(Ordering[Int].reverse)
     def helper(currentExpr: List[Int], remaining: Int): List[List[Int]] = {
       if (remaining == 0) List(currentExpr) // 找到一个合法组合
-      else if (remaining < 0 || coins.isEmpty) Nil // 超过目标或没有硬币可用
+      else if (remaining < 0 || sortedCoins.isEmpty) Nil // 超过目标或没有硬币可用
       else {
-        val minInExpr = if (currentExpr.isEmpty) coins.head else currentExpr.min
-        val usableCoins = coins.filter(_ <= minInExpr)
+        val minInExpr = if (currentExpr.isEmpty) sortedCoins.head else currentExpr.min
+        val usableCoins = sortedCoins.filter(_ <= minInExpr)
 
         usableCoins.flatMap { coin =>
           helper(currentExpr :+ coin, remaining - coin)
@@ -91,17 +92,17 @@ object Main {
     println("\nCount Change Tests:")
 
     val testCases = List(
-      (4, List(1, 2), 5), // 所有组合：[1,1,1,1], [1,1,2], [2,2], [1,2,1], [2,1,1]
-      (4, List(2, 1), 5),
-      (5, List(1, 2, 5), 9),
-      (5, List(5, 2, 1), 9),
+      (4, List(1, 2), 3), // 所有组合：[1,1,1,1], [1,1,2], [2,2], [1,2,1], [2,1,1]
+      (4, List(2, 1), 3),
+      (5, List(1, 2, 5), 4),
+      (5, List(5, 2, 1), 4),
       (3, List(2), 0),
-      (10, List(2, 5, 3, 6), 17),
-      (10, List(6, 5, 3, 2), 17),
+      (10, List(2, 5, 3, 6), 5),
+      (10, List(6, 5, 3, 2), 5),
       (0, List(1, 2, 3), 1),
       (0, List(3, 2, 1), 1),
       (1, List(), 0),
-      (7, List(1, 2, 3), 44),
+      (7, List(3, 2, 1), 8),
       (300, List(500,200,100,50,20,10,5), 1022) // 已知结果
       // 所有组合的数量
     )
