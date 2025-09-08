@@ -92,12 +92,18 @@ object Main {
 
     val testCases = List(
       (4, List(1, 2), 5), // 所有组合：[1,1,1,1], [1,1,2], [2,2], [1,2,1], [2,1,1]
+      (4, List(2, 1), 5),
       (5, List(1, 2, 5), 9),
+      (5, List(5, 2, 1), 9),
       (3, List(2), 0),
       (10, List(2, 5, 3, 6), 17),
+      (10, List(6, 5, 3, 2), 17),
       (0, List(1, 2, 3), 1),
+      (0, List(3, 2, 1), 1),
       (1, List(), 0),
-      (7, List(1, 2, 3), 44) // 所有组合的数量
+      (7, List(1, 2, 3), 44),
+        (7, List(3, 2, 1), 44)
+      // 所有组合的数量
     )
 
     testCases.foreach { case (money, coins, expectedCount) =>
