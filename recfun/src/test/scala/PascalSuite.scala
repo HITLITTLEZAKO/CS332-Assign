@@ -1,12 +1,9 @@
 package recfun
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
-class PascalSuite extends FunSuite {
+class PascalSuite extends AnyFunSuite {
   import Main.pascal
   test("pascal: col=0,row=2") {
     assert(pascal(0,2) === 1)

@@ -1,12 +1,9 @@
 package recfun
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
-class CountChangeSuite extends FunSuite {
+class CountChangeSuite extends AnyFunSuite {
   import Main.countChange
   test("countChange: example given in instructions") {
     assert(countChange(4,List(1,2)) === 3)
