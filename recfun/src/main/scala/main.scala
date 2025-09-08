@@ -13,7 +13,6 @@ object Main {
     }
   }
 
-
     /**
      * Exercise 1
      */
@@ -49,10 +48,15 @@ object Main {
     // def countChange(money: Int, coins: List[Int]): Int = ???
     def countChange(target: Int, coins: List[Int]): List[List[Int]] = {
       val sortedCoins = coins.sorted(Ordering[Int].reverse)
-
+/**
+ *To avoid duplicate combinations occurring in different orders,
+ * I ensure that coins are added in non-increasing order by filtering usableCoins
+ * to do that,i found the easiest way is to have the coins sorted in descending order first
+ * after which I can always filter the coins that are less than or equal to the minimum coin in the current expression easily
+ */
       def helper(currentExpr: List[Int], remaining: Int): List[List[Int]] = {
-        if (remaining == 0) List(currentExpr) // 找到一个合法组合
-        else if (remaining < 0 || sortedCoins.isEmpty) Nil // 超过目标或没有硬币可用
+        if (remaining == 0) List(currentExpr) // finds a valid combination
+        else if (remaining < 0 || sortedCoins.isEmpty) Nil // overflow or no coins left
         else {
           val minInExpr = if (currentExpr.isEmpty) sortedCoins.head else currentExpr.min
           val usableCoins = sortedCoins.filter(_ <= minInExpr)
@@ -62,11 +66,11 @@ object Main {
           }
         }
       }
-
-
-
       helper(Nil, target)
     }
-
-  }
+  /** this function returns all combinations of coins that sum to target as a list of lists
+   *however,I found later that the test code only needs the count of combinations
+   *So I added a function countChangeCount to return the length of the list of lists because I really don't want to right this again
+   */
+}
 
